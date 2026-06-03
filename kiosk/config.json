@@ -1,0 +1,17 @@
+{
+  "serverUrl": "http://localhost:8888",
+  "kioskId": "kiosk-test",
+  "fullscreen": false,
+  "width": 768,
+  "height": 1024,
+  "printer": {
+    "mode": "pdf",
+    "type": "epson",
+    "interface": "tcp://127.0.0.1:9100",
+    "characterSet": "THAI",
+    "width": 48,
+    "pdfDir": "tickets-pdf",
+    "comment": "เครื่องนี้ยังไม่มีเครื่องพิมพ์จริง จึงตั้ง mode='pdf' บัตรจะถูกบันทึกเป็น PDF ในโฟลเดอร์ pdfDir เปิดหน้าตั้งค่าด้วย Ctrl+Shift+P เพื่อสลับเป็น 'thermal' และเลือกเครื่องพิมพ์"
+  },
+  "shutdownTime": ""
+}
