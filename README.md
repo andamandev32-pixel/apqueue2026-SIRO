@@ -20,6 +20,39 @@
 
 ---
 
+## ไฟล์ที่ไม่อยู่ใน Git (ดาวน์โหลดจาก Google Drive)
+repo นี้มี **โค้ด + `kiosk/config.json` + ฐานข้อมูลตั้งต้น `server/data/queue.db` + มีเดีย/โลโก้** มาให้ครบแล้ว
+→ dev แค่ `git clone` + `npm install` ก็รันได้ทันที **ไม่ต้องโหลดอะไรเพิ่มจาก Drive สำหรับการพัฒนา**
+
+ไฟล์ที่อยู่ใน `.gitignore` (ไม่ติดมากับ repo) และวิธีได้มา:
+| ไฟล์ | จำเป็นต่อ dev? | วิธีได้มา |
+|------|---------------|-----------|
+| `node_modules/` | ❌ | `npm install` (ไม่ต้องมี Visual Studio — ใช้ `node:sqlite`) |
+| `kiosk/dist/Queue2026Kiosk Setup 1.0.0.exe` (~79 MB) | ✅ สำหรับเครื่อง kiosk | `npm run build` **หรือ** ดาวน์โหลดจาก Drive |
+| `kiosk/dist/` (win-unpacked / blockmap / builder-debug.yml) | ❌ | สร้างจาก `npm run build` |
+| `kiosk/tickets-pdf/*.pdf` | ❌ | สร้างอัตโนมัติตอนพิมพ์บัตร |
+
+**Google Drive (ตัวติดตั้ง Kiosk):**
+<https://drive.google.com/drive/folders/1C35ZLC73_SgC7rBp_cOAAEUpYNCAOq9O?usp=sharing>
+ในโฟลเดอร์มีไฟล์ **`Queue2026Kiosk Setup 1.0.0.exe`** สำหรับติดตั้งบนเครื่อง kiosk ที่ไม่มี dev tools
+
+### ตั้งค่าเครื่อง dev
+```powershell
+git clone <repo-url>
+cd queue_2026
+npm install                # ติดตั้ง dependency ทั้ง server + kiosk (ไม่ต้องคอมไพล์ native)
+npm start                  # รัน server — queue.db + มีเดีย มากับ repo แล้ว
+```
+
+### ตั้งค่าเครื่อง Kiosk (ไม่ใช่ dev)
+1. ดาวน์โหลด `Queue2026Kiosk Setup 1.0.0.exe` จาก Google Drive แล้วติดตั้ง
+2. แก้ `config.json` ของ kiosk (`serverUrl` + `printer`) ตามหัวข้อ [Kiosk](#kiosk-โปรแกรม-windows--พิมพ์บัตร) ด้านล่าง
+
+> **สำหรับผู้ดูแล:** เมื่อ build kiosk ใหม่ด้วย `npm run build` ให้นำไฟล์ `.exe` ตัวใหม่ใน `kiosk/dist/`
+> ขึ้นไปแทนที่ในโฟลเดอร์ Google Drive ข้างต้น (ตั้งสิทธิ์แชร์เป็น "ผู้มีลิงก์ดูได้")
+
+---
+
 ## เริ่มใช้งาน (Server)
 ```powershell
 # ที่โฟลเดอร์โปรเจกต์
